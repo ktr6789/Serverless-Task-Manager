@@ -1,0 +1,83 @@
+Build and Deploy a Serverless Task Manager
+
+Duration: 1 month
+
+Objective
+Build a small Python application, test it, and automatically deploy it to AWS using GitHub Actions.
+
+Project Requirements
+Create an AWS Lambda function that supports:
+- Adding a task with a title.
+- Listing tasks.
+- Marking a task as completed.
+- Deleting a task.
+- Handling invalid input with clear error messages.
+
+Store tasks in Amazon DynamoDB. Test the application using JSON events in the Lambda console.
+
+Example Input
+{
+  "action": "create",
+  "title": "Learn GitHub Actions"
+}
+
+Week 1 - Learn and Build the Basics
+- Learn basic Git, Python, Lambda, and DynamoDB concepts.
+- Create a GitHub repository and project structure.
+- Implement task operations locally using an in-memory dictionary.
+- Write unit tests for creating and listing tasks.
+
+Milestone: Basic application runs locally with passing tests.
+
+Week 2 - Deploy to AWS
+- Create a DynamoDB table.
+- Update the application to store and retrieve tasks from DynamoDB.
+- Deploy the Lambda function manually.
+- Configure IAM permissions with mentor support.
+- Test all four operations using Lambda console events.
+
+Milestone: Task data persists between Lambda invocations.
+
+Week 3 - Automate CI/CD
+Create a GitHub Actions workflow that:
+- Runs linting and unit tests on pull requests.
+- Runs tests and deploys Lambda after a push to main.
+- Prevents deployment when tests fail.
+- Uses OIDC to access AWS without stored AWS access keys.
+
+Also:
+- Add tests for missing titles, invalid actions, and nonexistent tasks.
+
+Milestone: A merged code change automatically reaches AWS.
+
+Week 4 - Improve and Demonstrate
+- Fix bugs and improve error messages.
+- Run an integration test covering create, list, complete, and delete.
+- Practice rolling back by redeploying a previous working commit.
+- Write setup, deployment, testing, and cleanup instructions.
+- Prepare a short demonstration and architecture diagram.
+
+Milestone: Complete project with a working pipeline and documentation.
+
+Tools and Cost Constraints
+Python - Application and tests
+GitHub Actions - Automated testing and deployment
+AWS Lambda - Run the application
+Amazon DynamoDB - Store tasks
+AWS IAM - Control access
+
+Target: $0 within AWS Free Tier limits.
+Have the mentor confirm account eligibility and remaining allowances before setup. Use a small DynamoDB table with provisioned capacity within the applicable free allowance, disable autoscaling, and remove resources after assessment. Use a public GitHub repository with standard runners for the pipeline.
+
+Final Deliverables
+- Source code, unit tests, and GitHub Actions workflow.
+- Working Lambda function and DynamoDB table.
+- README and simple architecture diagram.
+- Evidence of successful deployment and a failed test blocking deployment.
+- A 10-minute demonstration.
+
+Assessment
+- Functionality: 30%
+- CI/CD: 30%
+- Testing: 20%
+- Documentation and demonstration: 20%
