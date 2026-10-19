@@ -3,7 +3,7 @@ Build and Deploy a Serverless Task Manager
 Duration: 1 month
 
 Objective
-Build a small Python application, test it, and automatically deploy it to AWS using GitHub Actions.
+Build a small python application, test it, and automatically deploy it to AWS using GitHub Actions.
 
 Project Requirements
 Create an AWS Lambda function that supports:
@@ -22,7 +22,7 @@ Example Input
 }
 
 Week 1 - Learn and Build the Basics
-- Learn basic Git, Python, Lambda, and DynamoDB concepts.
+- Learn basic Git, Python , Lambda, and DynamoDB concepts.
 - Create a GitHub repository and project structure.
 - Implement task operations locally using an in-memory dictionary.
 - Write unit tests for creating and listing tasks.
