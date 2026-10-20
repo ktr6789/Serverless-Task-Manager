@@ -3,51 +3,53 @@ import json
 # Format --> 'title: {description: ..., status: ...}'
 # status is 'complete' or 'incomplete'
 tasks = {}
+next_task_id = 0
 
-def create_task(title, description, status):
-    tasks[title] = {}
-    tasks[title]['description'] = description
-    tasks[title]['status'] = status
+def create_task(title, description):
+    global next_task_id
+    task_id = next_task_id
+    tasks[task_id] = {'title': title, 'description': description, 
+                      'status': 'incomplete'}
+    next_task_id += 1
+    return task_id
 
 def list_tasks():
-    if len(tasks) == 0:
-        print("No tasks created")
-        return
-    
-    print("Active tasks are: \n")
+    return tasks
 
-    for title, task_details in tasks.items():
-        print(f"Title: {title},\ndescription: {task_details['description']},\nstatus: {task_details['status']}\n")
+def delete_task(task_id):
+    check = tasks.pop(task_id, None)
+    return check
 
-def delete_task(title):
-    check = tasks.pop(title, None)
-    if check == None:
-        print(f'Task "{title}" doesn\'t exist')
+
+def mark_task_complete(task_id):
+    if task_id in tasks:
+        tasks[task_id]['status'] = 'complete'
+        return True
     else:
-        print(f'Successfully deleted task "{title}"')    
+        return False
 
-
-def mark_task_complete(title):
-    check = tasks.get(title, None)
-    if check == None:
-        print(f'Task "{title}" doesn\'t exist')
-    else:
-        print(f'Marked task "{title}" as complete. ')
-        while (1):
-            decision = input("Would you like to remove task from list?: ")
-            print()
-            if decision.lower() == 'yes':
-                delete_task(title)
-                return
-            elif decision.lower() == 'no':
-                tasks[title]['status'] = 'complete'
-                return
-            else:
-                print("Error - please respond with 'yes' or 'no'.")
 
 if __name__ == '__main__':
-    create_task('Comp3411', 'Study for comp3411 assignment showcase', 'Incomplete')
-    create_task('Comp6080', 'Catchup on lectures', 'Incomplete')
-    list_tasks()
-    mark_task_complete('Comp3411')
-    list_tasks()
+    # Interactive menu
+    while (1):
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("Welcome to Task Manager!\n")
+        
+        print("What would you like to do?:")
+        print("'1' to create a task")
+        print("'2' to delete a task")
+        print("'3' to mark a task as complete")
+        print("'4' to list all tasks")
+        choice = input("Enter choice: ")
+
+        if choice not in {1,2,3,4}:
+
+        # match choice:
+        #     case 1:
+
+        #     case 2:
+
+        #     case 3:
+
+        #     case 4:
+
