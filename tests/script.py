@@ -1,3 +1,4 @@
+# Temp script to change app to app_old in test_old
 import sys
 from pathlib import Path
 import regex as re
