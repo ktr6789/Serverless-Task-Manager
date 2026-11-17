@@ -1,4 +1,4 @@
-"""Task manager operations for local use and AWS Lambda."""
+# Task manager operations for AWS Lambda.
 
 import json
 import os
