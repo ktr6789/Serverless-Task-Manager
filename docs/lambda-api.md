@@ -127,7 +127,7 @@ The handler also accepts an API Gateway-style event whose `body` is a **string c
 }
 ```
 
-This describes an input format the code can parse. The current handler returns `body` as a JSON object, whereas API Gateway's Lambda proxy integration generally expects the response `body` to be a string. The current documented interface is therefore direct Lambda invocation; an HTTP API and an OpenAPI/Swagger specification should be added after the HTTP integration and response format are configured.
+This body-only example retains the direct-invocation response format. Real Function URL and API Gateway proxy events include `requestContext` or `httpMethod`; the handler detects these, requires POST, and returns a serialized JSON string body with `Content-Type: application/json`. Base64-encoded request bodies are supported. Configure CORS in the Function URL or API Gateway settings. See [the frontend setup guide](../frontend/README.md) for the full AWS walkthrough.
 
 ## AWS setup the handler expects
 

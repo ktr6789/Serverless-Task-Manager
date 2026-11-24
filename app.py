@@ -2,6 +2,9 @@
 
 import json
 import os
+import base64
+import binascii
+import logging
 from uuid import uuid4
 
 def _task_table():
@@ -16,6 +19,36 @@ def _task_table():
 
 
 def lambda_handler(event, context):
+    """Adapt HTTP requests while preserving direct Lambda invocation responses."""
+    is_http = isinstance(event, dict) and ('requestContext' in event or 'httpMethod' in event)
+    if not is_http:
+        return _handle_action(event, context)
+
+    method = event.get('requestContext', {}).get('http', {}).get('method') or event.get('httpMethod')
+    if method != 'POST':
+        response = {'statusCode': 405, 'body': {'error': 'Use POST with a JSON action'}}
+    else:
+        try:
+            body = event.get('body') or ''
+            if event.get('isBase64Encoded'):
+                body = base64.b64decode(body, validate=True).decode('utf-8')
+            payload = json.loads(body)
+        except (ValueError, TypeError, UnicodeError, binascii.Error):
+            response = {'statusCode': 400, 'body': {'error': 'Request body must contain valid JSON'}}
+        else:
+            try:
+                response = _handle_action(payload, context)
+            except Exception:
+                logging.exception('Task request failed')
+                response = {'statusCode': 500, 'body': {'error': 'Unable to process the request. Check Lambda logs.'}}
+    headers = {'Content-Type': 'application/json', 'Cache-Control': 'no-store'}
+    if response['statusCode'] == 405:
+        headers['Allow'] = 'POST'
+    # Configure CORS on the Function URL (or API Gateway), not in both places.
+    return {**response, 'headers': headers, 'body': json.dumps(response['body'])}
+
+
+def _handle_action(event, context):
     """Handle create, list, complete, and delete JSON events using DynamoDB.
 
     The table must use a String partition key named ``task_id``.

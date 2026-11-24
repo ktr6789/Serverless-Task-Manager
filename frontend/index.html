@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>taskManager</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+  <header><a class="brand" href="./"><span class="logo">✓</span> taskManager</a><span class="connection" id="connection">API not configured</span></header>
+  <main>
+    <div class="intro"><p>Create a task, keep track of progress, and enjoy getting it done.</p></div>
+    <nav aria-label="Task actions">
+      <button data-action="create" aria-pressed="false"><span>＋</span>Create<span class="number">01</span></button>
+      <button data-action="list" aria-pressed="false"><span>≡</span>List tasks<span class="number">02</span></button>
+      <button data-action="complete" aria-pressed="false"><span>✓</span>Complete<span class="number">03</span></button>
+      <button data-action="delete" aria-pressed="false"><span>−</span>Delete<span class="number">04</span></button>
+    </nav>
+    <section class="workspace" aria-labelledby="panel-title" aria-busy="false">
+      <div class="panel-heading"><h2 id="panel-title">Your workspace</h2><span id="panel-meta"></span></div>
+      <p id="notice" role="status" aria-live="polite"></p>
+      <div id="content"><div class="empty"><span class="empty-icon">✓</span><h3>A fresh place to start.</h3><p>Choose an action above.<br>Your tasks and results will appear here.</p></div></div>
+    </section>
+    <footer><span>taskManager / TASK MANAGEMENT SYSTEM</span></footer>
+  </main>
+</body>
+</html>
+
